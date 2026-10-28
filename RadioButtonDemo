@@ -1,0 +1,105 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RadioButtonDemo extends JFrame {
+
+    private JRadioButton birdButton, catButton, dogButton, rabbitButton, pigButton;
+    private ButtonGroup petGroup;
+    private JButton showButton;
+
+    public RadioButtonDemo() {
+        // Set up the main window frame
+        setTitle("RadioButtonDemo");
+        setSize(400, 320);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
+
+        // Header instruction label
+        JLabel titleLabel = new JLabel("Choose your preferred kind of pet:", JLabel.CENTER);
+        titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 15, 10));
+        add(titleLabel, BorderLayout.NORTH);
+
+        // Panel to hold the radio buttons
+        JPanel radioPanel = new JPanel();
+        radioPanel.setLayout(new GridLayout(5, 1, 5, 5));
+        radioPanel.setBorder(BorderFactory.createEmptyBorder(10, 80, 10, 10));
+
+        // Initialize the five radio buttons
+        birdButton = new JRadioButton("Bird");
+        catButton = new JRadioButton("Cat");
+        dogButton = new JRadioButton("Dog");
+        rabbitButton = new JRadioButton("Rabbit");
+        pigButton = new JRadioButton("Pig");
+
+        // Group the radio buttons so only one can be selected at a time
+        petGroup = new ButtonGroup();
+        petGroup.add(birdButton);
+        petGroup.add(catButton);
+        petGroup.add(dogButton);
+        petGroup.add(rabbitButton);
+        petGroup.add(pigButton);
+
+        // Set Dog as default selection
+        dogButton.setSelected(true);
+
+        // Add radio buttons to the panel
+        radioPanel.add(birdButton);
+        radioPanel.add(catButton);
+        radioPanel.add(dogButton);
+        radioPanel.add(rabbitButton);
+        radioPanel.add(pigButton);
+
+        add(radioPanel, BorderLayout.CENTER);
+
+        // Bottom panel with action button
+        JPanel bottomPanel = new JPanel();
+        showButton = new JButton("Show Selection");
+        showButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
+        bottomPanel.add(showButton);
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 15, 10));
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        // Event listener for button click to show message box
+        showButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedPet = "";
+
+                if (birdButton.isSelected()) {
+                    selectedPet = "Bird";
+                } else if (catButton.isSelected()) {
+                    selectedPet = "Cat";
+                } else if (dogButton.isSelected()) {
+                    selectedPet = "Dog";
+                } else if (rabbitButton.isSelected()) {
+                    selectedPet = "Rabbit";
+                } else if (pigButton.isSelected()) {
+                    selectedPet = "Pig";
+                }
+
+
+                // Display selection using a JOptionPane message box
+                JOptionPane.showMessageDialog(
+                        RadioButtonDemo.this,
+                        "You selected: " + selectedPet,
+                        "Pet Selection Demo",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        // Run the GUI on the Event Dispatch Thread
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new RadioButtonDemo().setVisible(true);
+            }
+        });
+    }
+}
